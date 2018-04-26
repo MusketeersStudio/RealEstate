@@ -19,7 +19,7 @@ class Location extends Model
         'longitude',
     ];
 
-    public function property_type(){
+    public function property(){
         $this->belongsTo('App\Models\Property','property_id');
     }
 }

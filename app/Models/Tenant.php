@@ -25,8 +25,8 @@ class Tenant extends Model
     ];
 
 
-    public function lease(){
-        $this->hasOne('App\Models\Lease','tenant_id');
+    public function leases(){
+        $this->hasMany('App\Models\Lease','tenant_id');
     }
 
     public function pictures(){
