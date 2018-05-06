@@ -91,6 +91,15 @@
                     <a href="{{ url('/tenant') }}">Tenant</a>
                     <a href="{{ url('/service-provider') }}">Service Provider</a>
                 </div>
+
+                <div class="content" style="margin-top: 4em;">
+                    <div class="links">
+                        <a href="{{ url('/tenant/leases') }}">Leases</a>
+                        <a href="{{ url('/tenant/payments') }}">Payments</a>
+                        <a href="{{ url('/tenant/tickets') }}">Tickets</a>
+
+                    </div>
+                </div>
             </div>
         </div>
     </body>

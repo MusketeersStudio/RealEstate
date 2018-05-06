@@ -28,15 +28,31 @@ Route::get('/', function () {
 });
 
 
-Route::get('/property-manager', 'PropertyManagerController@index');
+//Route::get('/property-manager', 'PropertyManagerController@index');
 
 Route::get('/service-provider', 'ServiceProviderController@index');
 
 Route::get('/tenant', 'TenantController@index');
 
 
-Route::prefix('admin')->group(function () {
-    Route::get('/', function () {
-        // Matches The "/admin/users" URL
-    });
+Route::prefix('property-manager')->group(function () {
+    Route::get('/', 'PropertyManagerController@index');
+    Route::get('/properties', 'PropertyManagerController@properties');
+    Route::get('/units', 'PropertyManagerController@units');
+    Route::get('/leases', 'PropertyManagerController@leases');
+    Route::get('/tenants', 'PropertyManagerController@tenants');
+});
+
+Route::prefix('tenant')->group(function () {
+    Route::get('/', 'TenantController@index');
+    Route::get('/leases', 'TenantController@leases');
+    Route::get('/payments', 'TenantController@payments');
+    Route::get('/tickets', 'TenantController@tickets');
+
+});
+
+Route::prefix('service-provider')->group(function () {
+    Route::get('/', 'ServiceProviderController@index');
+    Route::get('/tickets', 'ServiceProviderController@tickets');
+
 });
