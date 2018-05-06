@@ -14,9 +14,16 @@ class CreatePropertyTypesTable extends Migration
     public function up()
     {
         Schema::create('property_types', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
+
             $table->string('name');
             $table->string('description')->nullable();
+
+            //Record Metadata fields
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('modified_by');
+            $table->timestamps();
         });
     }
 

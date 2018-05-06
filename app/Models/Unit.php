@@ -14,8 +14,6 @@ class Unit extends Model
     protected $fillable = [
         'property_id',
         'unit_type_id',
-        'maintenance_id',
-        'payment_plan_id',
 
         'name',
         'status',
@@ -37,8 +35,8 @@ class Unit extends Model
         $this->hasMany('App\Models\Lease','unit_id');
     }
 
-    public function payment_plan(){
-        $this->hasOne('App\Models\PaymentPlan','unit_id');
+    public function unique_payment_plan(){
+        return $this->morphOne('App\Models\PaymentPlan','payable');
     }
 
     public function maintenance(){

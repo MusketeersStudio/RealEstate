@@ -18,8 +18,6 @@ class CreateUnitsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('unit_type_id');
-            $table->unsignedInteger('maintenance_id');
-            $table->unsignedInteger('payment_plan_id');
             /**
              * Unit can be
              * - available/empty
@@ -28,9 +26,6 @@ class CreateUnitsTable extends Migration
              * - destroyed/no longer viable
              */
             $table->unsignedInteger('status');
-            /**
-             * Unique payment plan, if the unit does not follow other units of this type
-             */
 
             $table->string('description')->nullable();
             $table->string('name');

@@ -13,14 +13,13 @@ class Lease extends Model
      */
     protected $fillable = [
         'unit_id',
-        'tenant_id',
-        'payment_details_id',
+        'user_id',
 
         'status',
         'duration',
         'start_date',
         'end_date',
-
+        'lease_number',
 
         'created_by',
         'modified_by'
@@ -31,10 +30,10 @@ class Lease extends Model
     }
 
     public function tenant(){
-        $this->belongsTo('App\Models\Tenant','tenant_id');
+        $this->belongsTo('App\Models\User','user_id');
     }
 
     public function payment_details(){
-        $this->hasOne('App\Models\PaymentDetails','payment_details_id');
+        $this->hasOne('App\Models\PaymentDetails','lease_id');
     }
 }

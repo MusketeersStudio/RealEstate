@@ -16,7 +16,9 @@ class CreatePropertiesTable extends Migration
         Schema::create('properties', function (Blueprint $table) {
             //Unique
             $table->increments('id');
-            $table->unsignedInteger('manager_id');
+            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('property_type_id');
+
             /**
              * Properties can be
              * - operational
@@ -25,7 +27,6 @@ class CreatePropertiesTable extends Migration
              * - destroyed/no longer viable
              */
             $table->unsignedInteger('status');
-            $table->unsignedInteger('property_type_id');
 
             $table->string('name');
             $table->string('description')->nullable();

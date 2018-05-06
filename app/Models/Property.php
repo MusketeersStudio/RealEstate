@@ -12,8 +12,8 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'type_id',
-        'manager_id',
+        'user_id',
+        'property_type_id',
 
         'name',
         'status',
@@ -31,11 +31,11 @@ class Property extends Model
     }
 
     public function manager(){
-        $this->belongsTo('App\Models\PropertyManager','manager_id');
+        $this->belongsTo('App\Models\User','user_id');
     }
 
     public function location(){
-        $this->hasOne('App\Models\Location','property_id');
+        $this->morphOne('App\Models\Location','locatable');
     }
 
     public function units(){

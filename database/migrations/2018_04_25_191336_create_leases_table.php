@@ -14,9 +14,10 @@ class CreateLeasesTable extends Migration
     public function up()
     {
         Schema::create('leases', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
             $table->unsignedInteger('unit_id');
-            $table->unsignedInteger('tenant_id');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('payment_details_id');
             /**
              * Lease can be
@@ -31,6 +32,9 @@ class CreateLeasesTable extends Migration
             $table->timestamp('duration');
             $table->date('start_date');
             $table->date('end_date');
+
+            //Can be subject to change to hex numbers, more range of numbers
+            $table->unsignedInteger('lease_number');
 
             //Record Metadata fields
             $table->unsignedInteger('created_by');

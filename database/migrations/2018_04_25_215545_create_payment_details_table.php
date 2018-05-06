@@ -14,7 +14,13 @@ class CreatePaymentDetailsTable extends Migration
     public function up()
     {
         Schema::create('payment_details', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
+            $table->unsignedInteger('lease_id');
+
+            //Record Metadata fields
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

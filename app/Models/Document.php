@@ -10,11 +10,16 @@ class Document extends Model
         'name',
         'location',
         'description',
+
         'documentable_id',
         'documentable_type',
     ];
 
-    public function doc(){
+    /**
+     * Retrieve the model(documentable model) that owns this document.
+    */
+    //polymorphic relationship
+    public function documentable(){
         return $this->morphTo();
     }
 }

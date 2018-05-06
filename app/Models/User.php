@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +15,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'full_name',
+        'status',
+        'email',
+        'pass',
+        'tel',
+        'alt_tel',
+        'national_id',
     ];
 
     /**
@@ -24,6 +30,23 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'pass', 'remember_token',
     ];
+
+    //RELATIONSHIPS
+    public function leases(){
+        $this->hasMany('App\Models\Lease','user_id');
+    }
+
+    public function location(){
+        $this->morphOne('App\Models\Location','locatable');
+    }
+
+    public function pictures(){
+        return $this->morphMany('App\Models\Picture','picturable');
+    }
+
+    public function documents(){
+        return $this->morphMany('App\Models\Document','documentable');
+    }
 }

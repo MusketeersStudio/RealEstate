@@ -12,7 +12,8 @@ class PaymentPlan extends Model
      * @var array
      */
     protected $fillable = [
-        'unit_id',
+        'payable_id',
+        'payable_type',
 
         'deposit',
         'monthly_price',
@@ -23,8 +24,12 @@ class PaymentPlan extends Model
         'modified_by'
     ];
 
-    public function payment_plan(){
-        $this->belongsTo('App\Models\Unit','unit_id');
+    /**
+     * Retrieve the model(payable model) that owns this payment plan.
+     */
+    //polymorphic relationship
+    public function payable(){
+        return $this->morphTo();
     }
 
 }

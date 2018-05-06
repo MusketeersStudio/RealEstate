@@ -28,7 +28,7 @@ class AddForeignKeysToMaintenances extends Migration
     public function down()
     {
         Schema::table('maintenances', function (Blueprint $table) {
-            //
+            $table->dropForeign('maintenances_unit_id_foreign');
         });
     }
 }

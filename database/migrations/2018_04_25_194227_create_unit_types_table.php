@@ -14,13 +14,15 @@ class CreateUnitTypesTable extends Migration
     public function up()
     {
         Schema::create('unit_types', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
-            $table->string('size');
-            $table->unsignedInteger('bedrooms');
-            $table->unsignedInteger('bathrooms');
-            $table->unsignedInteger('kitchens');
-            $table->unsignedInteger('sitting_rooms');
-            $table->unsignedInteger('car_spaces');
+
+            $table->string('size')->nullable();
+            $table->unsignedInteger('bedrooms')->nullable();
+            $table->unsignedInteger('bathrooms')->nullable();
+            $table->unsignedInteger('kitchens')->nullable();
+            $table->unsignedInteger('sitting_rooms')->nullable();
+            $table->unsignedInteger('car_spaces')->nullable();
 
             //Record Metadata fields
             $table->unsignedInteger('created_by');

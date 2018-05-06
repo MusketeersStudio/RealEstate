@@ -17,6 +17,7 @@ class AddForeignKeysToUnits extends Migration
             $table->foreign('property_id')
                 ->references('id')->on('properties')
                 ->onDelete('cascade');
+
             $table->foreign('unit_type_id')
                 ->references('id')->on('unit_types')
                 ->onDelete('cascade');
@@ -31,7 +32,8 @@ class AddForeignKeysToUnits extends Migration
     public function down()
     {
         Schema::table('units', function (Blueprint $table) {
-            //
+            $table->dropForeign('units_property_id_foreign');
+            $table->dropForeign('units_unit_type_id_foreign');
         });
     }
 }

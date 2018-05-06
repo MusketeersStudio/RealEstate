@@ -10,11 +10,16 @@ class Picture extends Model
         'name',
         'location',
         'description',
+
         'picturable_id',
         'picturable_type',
     ];
 
-    public function pic(){
+    /**
+     * Retrieve the model(picturable model) that owns this picture.
+     */
+    //polymorphic relationship
+    public function picturable(){
         return $this->morphTo();
     }
 }

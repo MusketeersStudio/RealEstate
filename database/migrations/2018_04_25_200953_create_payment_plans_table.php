@@ -16,12 +16,16 @@ class CreatePaymentPlansTable extends Migration
         Schema::create('payment_plans', function (Blueprint $table) {
             //Unique
             $table->increments('id');
-            $table->unsignedInteger('unit_id');
 
             $table->integer('deposit');
             $table->integer('monthly_price');
-            $table->integer('water_deposit');
-            $table->integer('electricity_deposit');
+            $table->integer('water_deposit')->nullable();
+            $table->integer('electricity_deposit')->nullable();
+            $table->integer('agent_payment')->nullable();
+            $table->integer('other_payment')->nullable();
+
+            //polymorphic relationship
+            $table->morphs('payable');
 
             //Record Metadata fields
             $table->unsignedInteger('created_by');

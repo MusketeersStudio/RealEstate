@@ -13,6 +13,7 @@ class Maintenance extends Model
      */
     protected $fillable = [
         'unit_id',
+
         'overall_status',
         'wall_status',
         'floor_status',
@@ -20,6 +21,7 @@ class Maintenance extends Model
         'plumbing_status',
         'electricity_status',
         'other_status',
+
         'overall_description',
         'wall_description',
         'floor_description',

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddForeignKeysToServiceProvider extends Migration
+class AddForeignKeysToPaymentDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddForeignKeysToServiceProvider extends Migration
      */
     public function up()
     {
-        Schema::table('service_providers', function (Blueprint $table) {
-            $table->foreign('category_id')
-                ->references('id')->on('service_categories')
+        Schema::table('payment_details', function (Blueprint $table) {
+            $table->foreign('lease_id')
+                ->references('id')->on('leases')
                 ->onDelete('cascade');
         });
     }
@@ -27,6 +27,8 @@ class AddForeignKeysToServiceProvider extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('payment_details', function (Blueprint $table) {
+            $table->dropForeign('payment_details_lease_id_foreign');
+        });
     }
 }

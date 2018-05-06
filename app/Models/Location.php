@@ -12,14 +12,24 @@ class Location extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id',
+        'country',
+        'county_or_state',
+        'city',
+        'street_address',
+        'landmarks',
 
-        'address',
         'latitude',
         'longitude',
+
+        'locatable_id',
+        'locatable_type',
     ];
 
-    public function property(){
-        $this->belongsTo('App\Models\Property','property_id');
+    /**
+     * Retrieve the model(locatable model) that owns this location.
+     */
+    //polymorphic relationship
+    public function locatable(){
+        return $this->morphTo();
     }
 }

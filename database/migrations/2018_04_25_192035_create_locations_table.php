@@ -14,12 +14,26 @@ class CreateLocationsTable extends Migration
     public function up()
     {
         Schema::create('locations', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
-            $table->unsignedInteger('property_id');
 
-            $table->string('address');
+            //All this are useful for location algorithms
+            $table->string('country')->nullable();
+            $table->string('county_or_state')->nullable();
+            $table->string('city')->nullable();
+            $table->string('street_address')->nullable();
+            $table->string('landmarks')->nullable(); //will be separated by spaces (has no danger)
+
+            //Geo-location
             $table->string('latitude');
             $table->string('longitude');
+
+            //polymorphic relationship
+            $table->morphs('locatable');
+
+            //Record Metadata fields
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

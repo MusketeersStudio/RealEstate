@@ -14,13 +14,19 @@ class CreateDocumentsTable extends Migration
     public function up()
     {
         Schema::create('documents', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
+
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('location');
 
             //polymorphic relationship
             $table->morphs('documentable');
+
+            //Record Metadata fields
+            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }
