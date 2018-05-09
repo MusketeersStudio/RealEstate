@@ -19,9 +19,6 @@ class PaymentPlan extends Model
         'monthly_price',
         'water_deposit',
         'electricity_deposit',
-
-        'created_by',
-        'modified_by'
     ];
 
     /**

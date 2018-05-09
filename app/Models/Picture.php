@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Picture extends Model
 {
     protected $fillable = [
+        'picturable_id',
+        'picturable_type',
+
         'name',
         'location',
         'description',
-
-        'picturable_id',
-        'picturable_type',
     ];
 
     /**

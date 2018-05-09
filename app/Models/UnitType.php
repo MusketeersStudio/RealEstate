@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Util\CRUD\CRUDable;
 use Illuminate\Database\Eloquent\Model;
 
-class UnitType extends Model
+class UnitType extends Model implements CRUDable
 {
     /**
      * The attributes that are mass assignable.
@@ -12,19 +13,71 @@ class UnitType extends Model
      * @var array
      */
     protected $fillable = [
+        'property_id',
+
         'size',
         'bedrooms',
         'bathrooms',
         'kitchens',
         'sitting_rooms',
         'car_spaces',
-
-        'created_by',
-        'modified_by'
     ];
 
+    //CRUD
+    public static function crudSettings()
+    {
+        return[
+            /**
+             * Whether the model has a picture.
+             */
+            'hasPicture'=>true,
+
+            /**
+             * Whether the model has a picture.
+             */
+            'hasDocument'=>false,
+
+            /**
+             * Whether the model has a payment plan.
+             */
+            'hasPaymentPlan'=>true,
+
+            /**
+             * Attributes that will be persisted to and from the
+             * database
+             */
+            'attributes' => [
+                'size',
+                'bedrooms',
+                'bathrooms',
+                'kitchens',
+                'sitting_rooms',
+                'car_spaces',
+            ],
+
+            /**
+             * Foreign Keys in the model.
+             */
+            'foreign_keys' => [
+                'property_id'
+            ],
+
+            /**
+             * Models authorized to modify this model
+             */
+//            'authorized' => [0,1], //TODO: CHECK FOR AUTHORITY (i.e. SYSTEM based operation)
+
+            /**
+             * Models authorized to modify this model
+             */
+            'owner' => [
+                'property_id',
+            ]
+        ];
+    }
+
     //Needs to belong to a property because multiple properties may have different
-    //pitures of the unit type and different plans
+    //pictures of the unit type and different plans
     public function property(){
         $this->belongsTo('App\Models\Property','property_id');
     }
