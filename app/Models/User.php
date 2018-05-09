@@ -35,7 +35,7 @@ class User extends Authenticatable implements CRUDable
      * @var array
      */
     protected $hidden = [
-        'pass', 'remember_token',
+        'password', 'remember_token',
     ];
 
     //CRUD

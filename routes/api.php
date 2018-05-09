@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix'=>'/user', 'middleware'=>['web']],function () {
+
     Route::post('/login', [
         'uses' => 'Auth\LoginController@login',
     ]);
