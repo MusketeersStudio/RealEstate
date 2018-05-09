@@ -16,6 +16,7 @@ class CreateUnitTypesTable extends Migration
         Schema::create('unit_types', function (Blueprint $table) {
             //Unique
             $table->increments('id');
+            $table->unsignedInteger('property_id');
 
             $table->string('size')->nullable();
             $table->unsignedInteger('bedrooms')->nullable();
@@ -25,8 +26,6 @@ class CreateUnitTypesTable extends Migration
             $table->unsignedInteger('car_spaces')->nullable();
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

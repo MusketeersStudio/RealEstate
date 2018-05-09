@@ -16,6 +16,7 @@ class CreateUnitsTable extends Migration
         Schema::create('units', function (Blueprint $table) {
             //Unique
             $table->increments('id');
+            $table->unsignedInteger('user_id');
             $table->unsignedInteger('property_id');
             $table->unsignedInteger('unit_type_id');
             /**
@@ -32,8 +33,6 @@ class CreateUnitsTable extends Migration
 
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

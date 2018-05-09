@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder
 
             'full_name' => 'NostaLabs_Real_Estate_Management_System',
             'email' => 'nostalabsrealestate@gmail.com',
-            'pass' => bcrypt('secret'), //TODO: SYSTEM should have no password and no access to it?
+            'password' => bcrypt('secret'), //TODO: SYSTEM should have strong password and no access to it?
             'tel' => null, //TODO: Tel for SYSTEM
             'alt_tel' => null,
             'national_id' => 0,

@@ -34,8 +34,6 @@ class CreatePropertiesTable extends Migration
             $table->string('total_units');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

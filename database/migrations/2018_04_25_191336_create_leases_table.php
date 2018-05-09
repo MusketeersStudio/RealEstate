@@ -37,8 +37,6 @@ class CreateLeasesTable extends Migration
             $table->unsignedInteger('lease_number');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

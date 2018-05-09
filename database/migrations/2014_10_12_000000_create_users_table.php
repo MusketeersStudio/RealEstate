@@ -52,11 +52,12 @@ class CreateUsersTable extends Migration
 
             $table->string('full_name');
             $table->string('email')->unique();
-            $table->string('pass');
+            $table->string('password');
             $table->string('tel')->nullable();
             $table->string('alt_tel')->nullable();
             $table->string('national_id');
 
+            //Record Metadata fields
             $table->rememberToken();
             $table->timestamps();
         });

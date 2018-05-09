@@ -32,8 +32,6 @@ class CreateLocationsTable extends Migration
             $table->morphs('locatable');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

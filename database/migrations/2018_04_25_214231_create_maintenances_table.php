@@ -16,6 +16,7 @@ class CreateMaintenancesTable extends Migration
         Schema::create('maintenances', function (Blueprint $table) {
             //Unique
             $table->increments('id');
+            $table->unsignedInteger('user_id'); //Person who made the claim
             $table->unsignedInteger('unit_id');
 
             /**

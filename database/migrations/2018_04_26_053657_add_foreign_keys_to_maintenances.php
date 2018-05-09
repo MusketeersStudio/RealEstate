@@ -17,6 +17,9 @@ class AddForeignKeysToMaintenances extends Migration
             $table->foreign('unit_id')
                 ->references('id')->on('units')
                 ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 

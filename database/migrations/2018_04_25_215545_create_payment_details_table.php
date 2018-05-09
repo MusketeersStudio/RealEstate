@@ -19,8 +19,6 @@ class CreatePaymentDetailsTable extends Migration
             $table->unsignedInteger('lease_id');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

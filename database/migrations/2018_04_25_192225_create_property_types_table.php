@@ -21,8 +21,6 @@ class CreatePropertyTypesTable extends Migration
             $table->string('description')->nullable();
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }

@@ -25,8 +25,6 @@ class CreatePicturesTable extends Migration
             $table->morphs('picturable');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
-            $table->unsignedInteger('modified_by');
             $table->timestamps();
         });
     }
