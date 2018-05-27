@@ -1,0 +1,30 @@
+
+  <div class="row">
+    <div class="col-sm-12">
+      <label class="dt-cust-search f-right">
+        <div class="form-group">
+          <label>Search: </label>
+          <input
+            type='text'
+            class="form-control input-sm m-l-10"
+            placeholder='Search Name'
+            (keyup)='updateFilter($event)'
+          />
+        </div>
+      </label>
+    </div>
+  </div>
+  <ngx-datatable
+    #table
+    class='data-table'
+    [columns]="columns"
+    [sortType]="'multi'"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="50"
+    [limit]="10"
+    [rows]='rowsFilter'
+    [selectionType]="'single'"
+    (select)='onSelect($event)'>
+  </ngx-datatable>
