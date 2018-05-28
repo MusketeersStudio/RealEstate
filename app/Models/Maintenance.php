@@ -85,7 +85,7 @@ class Maintenance extends Model implements CRUDable
             /**
              * Models authorized to modify this model
              */
-//            'authorized' => [0,1], //TODO: CHECK FOR AUTHORITY (i.e. SYSTEM based operation)
+            'authorized' => [0,1],
 
             /**
              * Models authorized to modify this model
@@ -98,5 +98,9 @@ class Maintenance extends Model implements CRUDable
 
     public function unit(){
         $this->belongsTo('App\Models\Unit','unit_id');
+    }
+
+    public function owner(){
+        $this->belongsTo('App\Models\User','user_id');
     }
 }

@@ -40,19 +40,9 @@ class UserService implements CRUDService
     }
 
     public function beforeCreate($request,&$attributes){
-        //ADD AUTHORITY
-        switch ($request->role){
-            case 'ADMIN':
-                $attributes['authority'] = 1;
-                break;
-            case 'PROPERTY_MANAGER':
-                $attributes['authority'] = 2;
-                break;
-            case 'SERVICE_PROVIDER':
-                $attributes['authority'] = 3;
-                break;
-
-        }
-        return true;
+        if (in_array($request->role,config('authority.authorities'))){
+            $attributes['authority'] = config('authority.authorities')[$request->role];
+            return true;
+        }else return false;
     }
 }

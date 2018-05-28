@@ -50,7 +50,6 @@ trait HandlesCRUDRequest
      * @return \Illuminate\Http\JsonResponse
      */
     public function add(Request $request){
-        $all = Input::get('role');
         $this->validate($request,$this->addValidationRules);
 
         if($this->CRUDService->add($request)){

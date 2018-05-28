@@ -21,9 +21,6 @@ class Property extends Model implements CRUDable
         'description',
         'unit_prefix',
         'total_units',
-
-        'created_by',
-        'modified_by'
     ];
 
     //CRUD
@@ -68,13 +65,13 @@ class Property extends Model implements CRUDable
             /**
              * Models authorized to modify this model
             */
-//            'authorized' => [0,1], //TODO: CHECK FOR AUTHORITY (i.e. SYSTEM based operation)
+            'authorized' => [0,1],
 
             /**
              * Models authorized to modify this model
              */
             'owner' => [
-                'user_id',
+                'user_id' => null,
             ]
         ];
     }

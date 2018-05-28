@@ -83,7 +83,7 @@ class User extends Authenticatable implements CRUDable
             /**
              * Models authorized to modify this model
              */
-//            'authorized' => [0,1], //TODO: CHECK FOR AUTHORITY (i.e. SYSTEM based operation)
+            'authorized' => [0,1],
 
             /**
              * Models authorized to modify this model
