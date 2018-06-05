@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
+use App\Util\CRUD\CRUDable;
 use Illuminate\Database\Eloquent\Model;
 
-class Property extends Model
+class Property extends Model implements CRUDable
 {
     /**
      * The attributes that are mass assignable.
@@ -12,18 +13,68 @@ class Property extends Model
      * @var array
      */
     protected $fillable = [
-        'type_id',
-        'manager_id',
+        'user_id',
+        'property_type_id',
 
         'name',
         'status',
         'description',
         'unit_prefix',
         'total_units',
-
-        'created_by',
-        'modified_by'
     ];
+
+    //CRUD
+    public static function crudSettings()
+    {
+        return[
+            /**
+             * Whether the model has a picture.
+             */
+            'hasPicture'=>true,
+
+            /**
+             * Whether the model has a picture.
+             */
+            'hasDocument'=>true,
+
+            /**
+             * Whether the model has a payment plan.
+             */
+            'hasPaymentPlan'=>false,
+
+            /**
+             * Attributes that will be persisted to and from the
+             * database
+             */
+            'attributes' => [
+                'name',
+                'status',
+                'description',
+                'unit_prefix',
+                'total_units',
+            ],
+
+            /**
+             * Foreign Keys in the model.
+             */
+            'foreign_keys' => [
+                'user' => 'user_id',
+                'property_type' => 'property_type_id',
+            ],
+
+            /**
+             * Models authorized to modify this model
+            */
+            'authorized' => [0,1],
+
+            /**
+             * Models authorized to modify this model
+             */
+            'owner' => [
+                'user_id' => null,
+            ]
+        ];
+    }
 
     //RELATIONSHIP
     public function property_type(){
@@ -31,11 +82,11 @@ class Property extends Model
     }
 
     public function manager(){
-        $this->belongsTo('App\Models\PropertyManager','manager_id');
+        $this->belongsTo('App\Models\User','user_id');
     }
 
     public function location(){
-        $this->hasOne('App\Models\Location','property_id');
+        $this->morphOne('App\Models\Location','locatable');
     }
 
     public function units(){

@@ -14,9 +14,10 @@ class AddForeignKeysToLeases extends Migration
     public function up()
     {
         Schema::table('leases', function (Blueprint $table) {
-            $table->foreign('tenant_id')
-                ->references('id')->on('tenants')
+            $table->foreign('user_id')
+                ->references('id')->on('users')
                 ->onDelete('cascade');
+
             $table->foreign('unit_id')
                 ->references('id')->on('units')
                 ->onDelete('cascade');
@@ -31,7 +32,8 @@ class AddForeignKeysToLeases extends Migration
     public function down()
     {
         Schema::table('leases', function (Blueprint $table) {
-            //
+            $table->dropForeign('leases_user_id_foreign');
+            $table->dropForeign('leases_unit_id_foreign');
         });
     }
 }

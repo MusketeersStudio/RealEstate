@@ -17,6 +17,9 @@ class AddForeignKeysToMaintenances extends Migration
             $table->foreign('unit_id')
                 ->references('id')->on('units')
                 ->onDelete('cascade');
+            $table->foreign('user_id')
+                ->references('id')->on('users')
+                ->onDelete('cascade');
         });
     }
 
@@ -28,7 +31,7 @@ class AddForeignKeysToMaintenances extends Migration
     public function down()
     {
         Schema::table('maintenances', function (Blueprint $table) {
-            //
+            $table->dropForeign('maintenances_unit_id_foreign');
         });
     }
 }

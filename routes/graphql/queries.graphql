@@ -1,0 +1,9 @@
+type Query{
+
+    viewer: User @auth
+
+    user(
+        method: QUERY_METHOD!
+        id: ID
+    ): [User!]! @field(resolver: "App\\GraphQL\\Query\\User@resolve")
+}

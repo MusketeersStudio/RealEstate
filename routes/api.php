@@ -1,18 +1,34 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::group(['prefix'=>'/user', 'middleware'=>['web']],function () {
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+    Route::post('/login', [
+        'uses' => 'Auth\LoginController@login',
+    ]);
+
+    Route::post('/logout', [
+        'uses' => 'Auth\LoginController@logout',
+    ]);
+
 });
+
+Route::group(['prefix'=>'/temp'],function () {
+    Route::post('/storeTempPic',[
+        'uses' => 'TempController@storeTempPic',
+    ]);
+
+    Route::post('/storeTempDoc',[
+        'uses' => 'TempController@storeTempDoc',
+    ]);
+});
+
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/user','UserController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/lease','LeaseController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/maintenance','MaintenanceController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/payment_details','PaymentDetailsController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/property','PropertyController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/property_type','PaymentTypeController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/unit','UnitController',['web']);
+\App\Util\CRUD\RouteUtils::dynamicAddRoutes('/unit_type','UnitTypeController',['web']);

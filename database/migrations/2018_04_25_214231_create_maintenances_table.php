@@ -14,7 +14,9 @@ class CreateMaintenancesTable extends Migration
     public function up()
     {
         Schema::create('maintenances', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
+            $table->unsignedInteger('user_id'); //Person who made the claim
             $table->unsignedInteger('unit_id');
 
             /**
@@ -42,7 +44,7 @@ class CreateMaintenancesTable extends Migration
             $table->string('other_description');
 
             //Record Metadata fields
-            $table->unsignedInteger('created_by');
+            $table->unsignedInteger('created_by'); //Can help us retrieve the user that created it.
             $table->unsignedInteger('modified_by');
             $table->timestamps();
         });

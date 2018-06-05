@@ -14,7 +14,9 @@ class CreatePicturesTable extends Migration
     public function up()
     {
         Schema::create('pictures', function (Blueprint $table) {
+            //Unique
             $table->increments('id');
+
             $table->string('name');
             $table->string('description')->nullable();
             $table->string('location');
@@ -22,6 +24,7 @@ class CreatePicturesTable extends Migration
             //polymorphic relationship
             $table->morphs('picturable');
 
+            //Record Metadata fields
             $table->timestamps();
         });
     }

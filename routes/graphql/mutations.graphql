@@ -1,0 +1,54 @@
+type Mutation{
+
+    user(
+        method: MUTATION_METHOD!
+        user : User_Input!
+
+        location: Location_Input
+        pictures: [Picture_Input!]
+        documents: [Document_Input!]
+
+        password: String @validate(rules: ["nullable","min:6"])
+    ): User @field(resolver: "App\\GraphQL\\Mutation\\User@resolve")
+
+    login(
+        email: String!
+        password: String! @validate(rules: ["required","min:6"])
+    ): LoginPayload @field(resolver: "App\\GraphQL\\Mutation\\Login@resolve")
+
+    property(
+        method: MUTATION_METHOD!
+        property : Property_Input!
+
+        pictures: [Picture_Input!]
+        documents: [Document_Input!]
+        location: Location_Input
+
+    ): Property @field(resolver: "App\\GraphQL\\Mutation\\Property@resolve")
+
+    unit(
+        method: MUTATION_METHOD!
+        unit : Unit_Input!
+
+        payment_plan: [Payment_Plan_Input!]
+        documents: [Document_Input!]
+        pictures: [Picture_Input!]
+
+    ): Unit @field(resolver: "App\\GraphQL\\Mutation\\Unit@resolve")
+
+    unit_type(
+        method: MUTATION_METHOD!
+        unit_type : Unit_Type_Input!
+
+        payment_plan: [Payment_Plan_Input!]
+        pictures: [Picture_Input!]
+        documents: [Document_Input!]
+
+    ): Unit_Type @field(resolver: "App\\GraphQL\\Mutation\\Unit_Type@resolve")
+
+    property_type(
+        method: MUTATION_METHOD!
+        property_type : Property_Type_Input!
+
+    ): Property_Type @field(resolver: "App\\GraphQL\\Mutation\\Property_Type@resolve")
+}

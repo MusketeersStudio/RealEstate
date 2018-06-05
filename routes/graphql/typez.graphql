@@ -1,0 +1,180 @@
+type User {
+    id : ID!
+    role : String
+    sub_role : String
+    full_name : String
+    status : Int!
+    email : String
+    tel : String
+    alt_tel : String
+    national_id : String
+
+    leases: [Lease!] @hasMany
+    location: Location
+    pictures: [Picture!] @hasMany
+    documents: [Document!] @hasMany
+}
+
+type Unit_Type {
+    id: ID!
+    property_id: ID!
+
+    size : String
+    bedrooms : Int
+    bathrooms : Int
+    kitchens : Int
+    sitting_rooms : Int
+    car_spaces : String
+
+    pictures: [Picture!] @hasMany
+    units: [Unit!] @hasMany
+    payment_plan: Payment_Plan
+    property: Property
+}
+
+type Unit {
+    id: ID!
+    user_id: ID!
+    property_id: ID!
+    unit_type_id: ID!
+
+    name: String
+    status: Int!
+    description: String
+
+    owner: User
+    property: Property
+    unit_type: Unit_Type
+    leases: [Lease!] @hasMany
+    payment_plan: Payment_Plan
+    maintenance: Maintenance
+    pictures: [Picture!] @hasMany
+}
+
+type Property_Type {
+    id: ID!
+
+    name: String
+    description: String
+
+    properties: [Property!] @hasMany
+}
+
+type Property {
+    id: ID!
+    user_id: ID!
+    property_type_id: ID!
+
+    name: String
+    status: Int!
+    description: String
+    unit_prefix: String
+    total_units: Int!
+
+    manager: User
+    location: Location
+    property_type: Property_Type
+    units: [Unit!] @hasMany
+    pictures: [Picture!] @hasMany
+}
+
+type Picture {
+    id: ID!
+    name: String
+    location: String
+    description: String
+
+    picturable_id: ID!
+    picturable_type: String!
+}
+
+type Document {
+    id: ID!
+    name: String
+    location: String
+    description: String
+
+    documentable_id: ID!
+    documentable_type: String!
+}
+
+type Location {
+    id: ID!
+
+    country: String
+    county_or_state: String
+    city: String
+    street_address: String
+    landmarks: String
+
+    latitude: Int
+    longitude: Int
+
+    locatable_id: ID!
+    locatable_type: String
+}
+
+type Payment_Plan {
+    id: ID!
+
+    deposit: Int
+    monthly_price: Int
+    water_deposit: Int
+    electricity_deposit: Int
+
+    payable_id: ID!
+    payable_type: String
+}
+
+type Lease {
+    id: ID!
+    unit_id: ID!
+    user_id: ID!
+
+    status: Int
+    duration: Int
+    start_date: Int
+    end_date: Int
+    lease_number: Int
+
+    unit: Unit
+    tenant: User
+    payment_details: Payment_Details
+}
+
+type Payment_Details {
+    id: ID!
+    lease_id: ID!
+
+    lease: Lease
+}
+
+type Maintenance {
+    id: ID!
+    unit_id: ID!
+    user_id: ID!
+
+    overall_status: Int
+    wall_status: Int
+    floor_status: Int
+    window_status: Int
+    plumbing_status: Int
+    electricity_status: Int
+    other_status: Int
+
+    overall_description: String
+    wall_description: String
+    floor_description: String
+    window_description: String
+    plumbing_description: String
+    electricity_description: String
+    other_description: String
+
+    unit: Unit
+    owner: User
+}
+
+type LoginPayload{
+    token: String!
+    user: User!
+}
