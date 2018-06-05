@@ -8,7 +8,6 @@
 
 namespace App\Util\CRUD;
 
-
 use App\Events\CRUDEvent;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -74,18 +73,36 @@ trait HandlesCRUD
      * relation keys.
      *
      * @param Request $request
-     * @return array
+     * @return array|bool
      */
     private function resolveForeignKeys(Request $request){
         $relations = array();
-        foreach ($this->fromSettings('foreign_keys') as $key) {
+        foreach ($this->fromSettings('foreign_keys') as $key => $value) {
 
+            /**
+             * If the request has the related model itself.
+             * Get it from the related model
+            */
             if ($request->has($key)){
-                $relations[$key] = $request->{$key};
+                $relations[$value] = $request->{$key}[$value];
                 continue;
             }
+            /**
+             * If the request has only the foreign key field then
+             * get it from there.
+            */
+            else if ($request->has($value)){
+                $relations[$value] = $request->{$value};
+                continue;
+            }
+            /**
+             * If there is no field. We cannot persist this to the database.
+            */
+            else {
+                $this->info['add_exception'][] = "Foreign key ". $value . " must be resolved.";
+            }
         }
-        return $relations;
+        return empty($this->errors) ? $relations: false;
     }
 
     /**
@@ -105,10 +122,17 @@ trait HandlesCRUD
      */
     public function add(Request $request){
         $model = null;
-        $attributes = array_merge(
-                        $request->only($this->fromSettings('attributes')),
-                        $this->resolveForeignKeys($request)
-                      );
+
+        if ($this->fromSettings('foreign_keys')) //If the relation has foreign keys
+            //Check for correct attributes and foreign keys
+            if($relations = $this->resolveForeignKeys($request)){
+                $attributes = array_merge(
+                    $request->only($this->fromSettings('attributes')),
+                    $relations
+                );
+
+            }else return false;
+        else $attributes = $request->only($this->fromSettings('attributes'));
 
         //handle passwords
         if (array_key_exists('password',$attributes)){

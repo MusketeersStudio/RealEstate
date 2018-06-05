@@ -78,7 +78,7 @@ class User extends Authenticatable implements CRUDable
             /**
              * Foreign Keys in the model.
              */
-            'foreign_keys' => [],
+            'foreign_keys' => false,
 
             /**
              * Models authorized to modify this model

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class TempController extends Controller
 {
     use DoesResponses;
+
     public function storeTempPic(Request $request){
         $path = 'public/temp';
 
@@ -19,7 +20,9 @@ class TempController extends Controller
 
         $request->file('tempImage')->storeAs($path,$fileNameToStore);
 
-        return $this->successResponse(['location'=>$path . '/' .$fileNameToStore]);
+        return $this->successResponse(
+            ['location'=>$path . '/' .$fileNameToStore]
+        );
     }
 
     public function storeTempDoc(Request $request){

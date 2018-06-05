@@ -2,64 +2,17 @@
 
 namespace App\GraphQL\Mutation;
 
-use App\Services\UserService;
-use App\Util\CRUD\HandlesGraphQLCRUDRequest;
+use App\Services\PropertyTypeService;
 use App\Util\CRUD\HandlesGraphQLMutationRequest;
-use Folklore\GraphQL\Support\Mutation;
-use GraphQL\Type\Definition\ObjectType;
 use GraphQL\Type\Definition\ResolveInfo;
-use GraphQL\Type\Definition\Type;
-use GraphQL;
-use Illuminate\Http\Request;
 
-class Property_Type extends Mutation
+class Property_Type
 {
     use HandlesGraphQLMutationRequest;
 
-    protected $attributes = [
-        'name' => 'property_type',
-        'description' => 'A mutation'
-    ];
-
-    /**
-     * @var $request \Illuminate\Http\Request
-     */
-    protected $request;
-
-    public function __construct($attributes = [],Request $request,UserService $CRUDService)
+    public function __construct(PropertyTypeService $CRUDService)
     {
-        parent::__construct($attributes);
-        $this->request = $request;
         $this->CRUDService = $CRUDService;
-    }
-
-    /**
-     * Available arguments on mutation.
-     *
-     * @return array
-     */
-    public function args()
-    {
-        return [
-            'method' => [
-                'type' => GraphQL::type('mutation_method'),
-                'rules' => ['required','string']
-            ],
-            'property_type' => [
-                'type' => GraphQL::type('property_type'),
-                'rules' => ['required']
-            ],
-        ];
-    }
-
-    /**
-     * Type that mutation returns.
-     *
-     * @return ObjectType
-     */
-    public function type()
-    {
-        return GraphQL::type('property_type');
     }
 
     /**
@@ -72,11 +25,11 @@ class Property_Type extends Mutation
      */
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        $this->request->merge($args['property_type']);
+        $context->request->merge($args['property_type']);
 
         $fn = $args['method'];
         try{
-            return $this->$fn();
+            return $this->$fn($context->request);
         }catch (\Exception $e){
             return $e;
         }

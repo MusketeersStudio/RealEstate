@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Util\CRUD\CRUDable;
 use Illuminate\Database\Eloquent\Model;
 
-class Property extends Model implements CRUDable
+class Payment_Details extends Model implements CRUDable
 {
     /**
      * The attributes that are mass assignable.
@@ -13,14 +13,8 @@ class Property extends Model implements CRUDable
      * @var array
      */
     protected $fillable = [
-        'user_id',
-        'property_type_id',
+        'lease_id',
 
-        'name',
-        'status',
-        'description',
-        'unit_prefix',
-        'total_units',
     ];
 
     //CRUD
@@ -30,12 +24,12 @@ class Property extends Model implements CRUDable
             /**
              * Whether the model has a picture.
              */
-            'hasPicture'=>true,
+            'hasPicture'=>false,
 
             /**
              * Whether the model has a picture.
              */
-            'hasDocument'=>true,
+            'hasDocument'=>false,
 
             /**
              * Whether the model has a payment plan.
@@ -47,54 +41,31 @@ class Property extends Model implements CRUDable
              * database
              */
             'attributes' => [
-                'name',
-                'status',
-                'description',
-                'unit_prefix',
-                'total_units',
+
             ],
 
             /**
              * Foreign Keys in the model.
              */
             'foreign_keys' => [
-                'user' => 'user_id',
-                'property_type' => 'property_type_id',
+                'lease' => 'lease_id',
             ],
 
             /**
              * Models authorized to modify this model
-            */
+             */
             'authorized' => [0,1],
 
             /**
              * Models authorized to modify this model
              */
             'owner' => [
-                'user_id' => null,
+                'lease_id',
             ]
         ];
     }
 
-    //RELATIONSHIP
-    public function property_type(){
-        $this->belongsTo('App\Models\PropertyType','property_type_id');
+    public function lease(){
+        $this->belongsTo('App\Models\Lease','lease_id');
     }
-
-    public function manager(){
-        $this->belongsTo('App\Models\User','user_id');
-    }
-
-    public function location(){
-        $this->morphOne('App\Models\Location','locatable');
-    }
-
-    public function units(){
-        $this->hasMany('App\Models\Unit','property_id');
-    }
-
-    public function pictures(){
-        return $this->morphMany('App\Models\Picture','picturable');
-    }
-
 }

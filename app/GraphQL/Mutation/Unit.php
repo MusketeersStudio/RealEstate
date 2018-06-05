@@ -2,6 +2,7 @@
 
 namespace App\GraphQL\Mutation;
 
+use App\Services\UnitService;
 use App\Services\UnitTypeService;
 use App\Util\CRUD\HandlesGraphQLCRUDRequest;
 use App\Util\CRUD\HandlesGraphQLMutationRequest;
@@ -25,7 +26,7 @@ class Unit extends Mutation
      */
     protected $request;
 
-    public function __construct($attributes = [],Request $request,UnitTypeService $CRUDService)
+    public function __construct($attributes = [],Request $request,UnitService $CRUDService)
     {
         parent::__construct($attributes);
         $this->request = $request;

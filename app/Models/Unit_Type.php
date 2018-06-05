@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Util\CRUD\CRUDable;
 use Illuminate\Database\Eloquent\Model;
 
-class Unit extends Model implements CRUDable
+class Unit_Type extends Model implements CRUDable
 {
     /**
      * The attributes that are mass assignable.
@@ -13,15 +13,15 @@ class Unit extends Model implements CRUDable
      * @var array
      */
     protected $fillable = [
-    'user_id',
-    'property_id',
-    'unit_type_id',
+        'property_id',
 
-    'name',
-    'status',
-    'description',
+        'size',
+        'bedrooms',
+        'bathrooms',
+        'kitchens',
+        'sitting_rooms',
+        'car_spaces',
     ];
-
 
     //CRUD
     public static function crudSettings()
@@ -47,18 +47,19 @@ class Unit extends Model implements CRUDable
              * database
              */
             'attributes' => [
-                'name',
-                'status',
-                'description',
+                'size',
+                'bedrooms',
+                'bathrooms',
+                'kitchens',
+                'sitting_rooms',
+                'car_spaces',
             ],
 
             /**
              * Foreign Keys in the model.
              */
             'foreign_keys' => [
-                'user' => 'user_id',
-                'property' => 'property_id',
-                'unit_type' => 'unit_type_id',
+                'property' => 'property_id'
             ],
 
             /**
@@ -70,33 +71,26 @@ class Unit extends Model implements CRUDable
              * Models authorized to modify this model
              */
             'owner' => [
-                'user_id',
+                'property_id',
             ]
         ];
     }
 
-    public function owner(){
-        $this->belongsTo('App\Models\User','user_id');
-    }
-
+    //Needs to belong to a property because multiple properties may have different
+    //pictures of the unit type and different plans
     public function property(){
         $this->belongsTo('App\Models\Property','property_id');
     }
 
-    public function unit_type(){
-        $this->belongsTo('App\Models\UnitType','unit_type_id');
+    public function units(){
+        $this->hasMany('App\Models\Unit','unit_type_id');
     }
 
-    public function leases(){
-        $this->hasMany('App\Models\Lease','unit_id');
-    }
-
-    public function unique_payment_plan(){
+    /**
+     * Default plan for all of those that don't have unique payment plans
+    */
+    public function default_payment_plan(){
         return $this->morphOne('App\Models\PaymentPlan','payable');
-    }
-
-    public function maintenance(){
-        $this->hasOne('App\Models\Maintenance','unit_id');
     }
 
     public function pictures(){

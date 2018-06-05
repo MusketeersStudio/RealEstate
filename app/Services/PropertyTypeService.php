@@ -25,7 +25,7 @@ class PropertyTypeService implements CRUDService
 
     public function getModelType()
     {
-        return 'App\Models\PropertyType';
+        return 'App\Models\Property_Type';
     }
 
     public function getEventChannel()

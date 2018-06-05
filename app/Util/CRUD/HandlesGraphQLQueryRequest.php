@@ -28,53 +28,44 @@ trait HandlesGraphQLQueryRequest
     /**
      * Fetch a Model without any restriction.
      *
+     * @param Request $request
      * @return Model
      * @throws Exception
      */
-    public function GET_ONE(){
-        if($this->CRUDService->get($this->request,$this->request->id)){
-            return $this->CRUDService->info['get'];
+    public function GET_ONE(Request $request){
+        if (!empty($request->id)) {
+            if($this->CRUDService->get($request,$request->id)){
+                return $this->CRUDService->info['get'];
+            }else{
+                throw new Exception(json_encode($this->CRUDService->errors));
+            }
         }else{
-            throw new Exception(json_encode($this->CRUDService->errors));
+            throw new Exception("Id is required");
         }
     }
 
     /**
      * Fetch all Models without any restriction.
      *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws Exception
      */
-    public function GET_ALL(){
-        if($this->CRUDService->getAll($this->request)){
+    public function GET_ALL(Request $request){
+        if($this->CRUDService->getAll($request)){
             return $this->CRUDService->info['get_all'];
         }else{
             throw new Exception(json_encode($this->CRUDService->errors));
         }
     }
 
-    public function args()
-    {
-        return [
-            'method' => [
-                'type' => GraphQL::type('query_method'),
-                'rules' => ['required','string']
-            ],
-            'id' => [
-                'name' => 'id',
-                'type' => Type::int(),
-                'rules' => ['nullable', 'integer']
-            ],
-        ];
-    }
-
     public function resolve($root, $args, $context, ResolveInfo $info)
     {
-        if(isset($args['id'])) $this->request->merge($args);
+        if(isset($args['id'])) $context->request->merge($args);
 
         $fn = $args['method'];
         try{
-            return $this->$fn();
+            return $this->{$fn}($context->request);
         }catch (\Exception $e){
             return $e;
         }

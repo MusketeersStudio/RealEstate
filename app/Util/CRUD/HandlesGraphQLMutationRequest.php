@@ -23,11 +23,12 @@ trait HandlesGraphQLMutationRequest
 
     /**
      * Store a newly created resource in storage.
+     * @param Request $request
      * @return Model
      * @throws Exception
      */
-    public function ADD(){
-        if($this->CRUDService->add($this->request)){
+    public function ADD(Request $request){
+        if($this->CRUDService->add($request)){
             return $this->CRUDService->info['added'];
         }else{
             throw new Exception(json_encode($this->CRUDService->errors));
@@ -36,11 +37,13 @@ trait HandlesGraphQLMutationRequest
 
     /**
      * Update the specified resource in storage.
+     * @param Request $request
+     * @param $id
      * @return Model
      * @throws Exception
      */
-    public function UPDATE(){
-        if($this->CRUDService->update($this->request,$this->request->id)){
+    public function UPDATE(Request $request,$id = null){
+        if($this->CRUDService->update($request,$id)){
             return $this->CRUDService->info['updated'];
         }else{
             throw new Exception(json_encode($this->CRUDService->errors));
@@ -49,11 +52,13 @@ trait HandlesGraphQLMutationRequest
 
     /**
      * Remove the specified resource from storage.
+     * @param Request $request
+     * @param $id
      * @return Model
      * @throws Exception
      */
-    public function DELETE(){
-        if($this->CRUDService->delete($this->request,$this->request->id)){
+    public function DELETE(Request $request,$id = null){
+        if($this->CRUDService->delete($request,$id)){
             return $this->CRUDService->info['deleted'];
         }else{
             throw new Exception(json_encode($this->CRUDService->errors));
