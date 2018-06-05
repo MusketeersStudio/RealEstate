@@ -45,7 +45,7 @@ type Unit {
     owner: User
     property: Property
     unit_type: Unit_Type
-    leases: [Leases!] @hasMany
+    leases: [Lease!] @hasMany
     payment_plan: Payment_Plan
     maintenance: Maintenance
     pictures: [Picture!] @hasMany
